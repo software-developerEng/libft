@@ -20,5 +20,7 @@
 int ft_isalpha(char *s1);
 int ft_isdigit(char *s1);
 int ft_isalnum(char *s1);
+int ft_isprint(char *s1);
+int ft_strlen(char *s1);
 
 #endif
