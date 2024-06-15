@@ -1,66 +1,54 @@
 #include "libft.h"
 
-static size_t	char_check(char const *str, char const c)
-{
-	size_t	i;
+#include <stdlib.h>
 
-	if (!str)
-		return (0);
-	i = 0;
+char str_len(char const *str)
+{
+	int i = 0;
 	while (str[i])
+		i++;
+	return i;
+}
+
+
+static size_t characterCheck(const char *set, const char s1)
+{
+	int i = 0;
+	while (set[i])
 	{
-		if (str[i] == c)
+		if (s1 == set[i])
 			return (1);
+	
 		i++;
 	}
 	return (0);
 }
 
-static size_t	str_len(char const *str)
+char	*ft_strtim(char const *s1, char const *set)
 {
-	size_t	i;
+	char *trim;
+	size_t start;
+	size_t end;
+	size_t i;
 
+	start = 0;
+	end = str_len(s1) -1;
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-static char	*str_new(size_t n)
-{
-	char	*str;
-
-	str = (char *)malloc(sizeof(char) * (n + 1));
-	if (!str)
-		return (NULL);
-	return (str);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	char	*trim;
-	size_t	start;
-	size_t	end;
-	size_t	i;
 
 	if (!s1 || !set)
-		return (NULL);
-	start = 0;
-
-	while (s1[start] && char_check(set, s1[start]))
+		return NULL;
+	
+	while (s1[start] != '\0' && characterCheck(set, s1[start]))
 		start++;
-	end = str_len(s1);
-	while (end > start && char_check(set, s1[end-1]))
+	while (end > start && characterCheck(set, s1[end]))
 		end--;
-	trim = str_new(end - start);
-	if (!trim)
-		return (NULL);
-	i = 0;
-	while ((start + i) < end)
+	trim = (Char *)malloc( sizeof(char) * (end  - start) );
+	if (!trim) 	return NULL;
+	while ( start + i < end)
 	{
 		trim[i] = s1[start + i];
 		i++;
 	}
-	*(trim + i) = '\0';
-	return (trim);
+	trim[i] = '\0';
+	return trim;
 }
